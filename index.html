@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="styles.css" type="text/css"> -->
+    <title>Reference Electrode Conversions!</title>
+  </head>
+  <style>
+    body {
+      margin-top: 1em;
+    }
+    .badge {
+      font-size: 20px;
+      padding: 2px 20px;
+    }
+    .jumbotron {
+    color: white;
+    background-color: #0c9cf4;
+    background-size: cover;
+    }
+    .col1 {
+      color: white;
+    }
+    #calculation{
+      margin-left: 2em;
+    }
+    input {
+      text-align: center;
+      font-weight: bold;
+      width: 150px;
+    }
+    h4 {
+     border: 1px solid grey;
+     background-color: #2f4e84;
+     box-shadow: 0 3px 8px -5px rgba(0,0,0,.5);
+     margin-top: 20px;
+     padding: 10px;
+     color: white;
+    }
+    #refE {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .lastrow {
+      border: 1px solid grey;
+      background-color: #2f4e84;
+      box-shadow: 0 3px 8px -5px rgba(0,0,0,.5);
+      padding: 10px;
+    }
+  </style>
+  <body>
+    <div class='container bg-light'>
+
+      <br>
+      <h2  style="background-color: #2f4e84; color: white; padding: 20px 0px; text-align: center">Reference Electrode Conversions Calculator</h2>
+      <br>
+
+      <table class="table" style="text-align: center">
+        <thead style="background-color: #2f4e84; color: white">
+          <tr>
+            <th scope="col">Electorde</th>
+            <th scope="col">Copper-Copper <br> Sulphate</th>
+            <th scope="col">Silver-Silver <br> Chloride Electrode</th>
+            <th scope="col">Saturated <br> Calomel Electrode</th>
+            <th scope="col">Zinc</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: #bdcfef; margin-bottom: 50px">
+          <tr class="success">
+            <td scope="row" style="background-color: #e2aaaa; font-weight: bold; font-size: 20px">CSE</td>
+            <td><input type="number" id="cse1"></td>
+            <td><input type="number" id="cse2"></td>
+            <td><input type="number" id="cse3"></td>
+            <td><input type="number" id="cse4"></td>
+          </tr>
+          <tr class="danger">
+            <td scope="row" style="background-color: #e0e2aa; font-weight: bold; font-size: 20px">Ag-AgCl</td>
+            <td><input type="number" id="ag1"></td>
+            <td><input type="number" id="ag2"></td>
+            <td><input type="number" id="ag3"></td>
+            <td><input type="number" id="ag4"></td>
+          </tr>
+          <tr class="info">
+            <td scope="row" style="background-color: #d3c5e8; font-weight: bold; font-size: 20px">SCE</td>
+            <td><input type="number" id="se1"></td>
+            <td><input type="number" id="se2"></td>
+            <td><input type="number" id="se3"></td>
+            <td><input type="number" id="se4"></td>
+          </tr>
+          <tr class="warning">
+            <td scope="row" style="background-color: #b5e2dc; font-weight: bold; font-size: 20px">Zn</td>
+            <td><input type="number" id="zn1"></td>
+            <td><input type="number" id="zn2"></td>
+            <td><input type="number" id="zn3"></td>
+            <td><input type="number" id="zn4"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="input-group">
+            <label class="label-control" style="margin-left:5rem; font-weight: bold; font-size: 18px">Enter Your Value Here:</label>
+            <input type="number" id="val" style="margin-left:2rem; background-color: #ffd56f">
+            <input type="button" class="btn btn-info" value="Calculate"  onclick="refElectrode()" id="calc" style="margin-left:2rem; font-weight: bold;">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#servicesmodal" style="margin-left:5rem; font-weight: bold;">Reference Electrode Relative Values</button>
+        </div>
+      </div>
+      <div class="modal fade" id="servicesmodal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <h4 class="text-center">Relative Values of Reference Electrode<br>with respect to Copper-Copper Sulphate</h3>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Copper-Copper <br> Sulphate</th>
+                    <td scope="row" style="background-color: #e2aaaa; font-weight: bold; font-size: 20px; text-align:center;">CSE</td>
+                    <td scope="row" id="refE">0.000</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Silver-Silver <br> Chloride (Saturated)</th>
+                    <td scope="row" style="background-color: #e0e2aa; font-weight: bold; font-size: 20px; text-align:center;">Ag-AgCl</td>
+                    <td scope="row" id="refE" >-0.050</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Saturated Calomel</th>
+                    <td scope="row" style="background-color: #d3c5e8; font-weight: bold; font-size: 20px; text-align:center;">SCE</td>
+                    <td scope="row" id="refE" >-0.070</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Zinc (99.9%)</th>
+                    <td scope="row" style="background-color: #b5e2dc; font-weight: bold; font-size: 20px; text-align:center;">Zn</td>
+                    <td scope="row" id="refE">-1.10</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="lastrow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+      function refElectrode(){
+
+        var val = Number(document.getElementById('val').value);
+
+        document.getElementById('cse1').value = val;
+        document.getElementById('cse2').value = (val - (0 - 0.05)).toFixed(2);
+        document.getElementById('cse3').value = (val - (0 - 0.07)).toFixed(2);
+        document.getElementById('cse4').value = (val - (0 - 1.1)).toFixed(2);
+
+        document.getElementById('ag1').value = (val - (0.05 - 0)).toFixed(2);
+        document.getElementById('ag2').value = (val - (0.05 - 0.05)).toFixed(2);
+        document.getElementById('ag3').value = (val - (0.05 - 0.07)).toFixed(2);
+        document.getElementById('ag4').value = (val - (0.05 - 1.1)).toFixed(2);
+
+        document.getElementById('se1').value = (val - (0.07 - 0)).toFixed(2);
+        document.getElementById('se2').value = (val - (0.07 - 0.05)).toFixed(2);
+        document.getElementById('se3').value = (val - (0.07 - 0.07)).toFixed(2);
+        document.getElementById('se4').value = (val - (0.07 - 1.1)).toFixed(2);
+
+        document.getElementById('zn1').value = (val - (1.1 - 0)).toFixed(2);
+        document.getElementById('zn2').value = (val - (1.1 - 0.05)).toFixed(2);
+        document.getElementById('zn3').value = (val - (1.1 - 0.07)).toFixed(2);
+        document.getElementById('zn4').value = (val - (1.1 - 1.1)).toFixed(2);
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- <script src="javascript.js"></script> -->
+  </body>
+</html>
